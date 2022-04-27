@@ -4,6 +4,7 @@ import { SearchPanel } from "screens/project-list/search-panel";
 import { List } from "screens/project-list/list";
 import { cleanObject, useDebounce, useMount } from "../../utils";
 import { useHttp } from "../../utils/http";
+import styled from "@emotion/styled";
 
 export const ProjectListScreen = () => {
   const [users, setUsers] = useState([]);
@@ -24,9 +25,14 @@ export const ProjectListScreen = () => {
   });
 
   return (
-    <div>
+    <Container>
+      <h1>Project List</h1>
       <SearchPanel users={users} param={param} setParam={setParam} />
       <List list={list} users={users} />
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  padding: 3.2rem;
+`;
