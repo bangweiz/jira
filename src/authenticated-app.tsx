@@ -9,6 +9,7 @@ import { Row } from "./components/lib";
 import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 import { Button, Dropdown, Menu } from "antd";
 import { ProjectScreen } from "./screens/project";
+import { resetRoute } from "./utils";
 
 export const AuthenticatedApp = () => {
   return (
@@ -19,6 +20,7 @@ export const AuthenticatedApp = () => {
           <Routes>
             <Route path="/project" element={<ProjectListScreen />} />
             <Route path="/project/:projectId/*" element={<ProjectScreen />} />
+            <Route path="" element={<Navigate to="/project" />} />
           </Routes>
         </Router>
       </Main>
@@ -32,7 +34,9 @@ const PageHeader = () => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
-        <SoftwareLogo width="18rem" color="rbg(38, 132, 255)" />
+        <Button type="link" onClick={resetRoute}>
+          <SoftwareLogo width="18rem" color="rbg(38, 132, 255)" />
+        </Button>
         <h3>Project</h3>
         <h3>User</h3>
       </HeaderLeft>
