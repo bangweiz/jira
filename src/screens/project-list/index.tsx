@@ -8,10 +8,13 @@ import { Typography } from "antd";
 import { useProjects } from "../../utils/project";
 import { useUsers } from "../../utils/user";
 import { useProjectsSearchParams } from "./utils";
-import { Row } from "components/lib";
+import { ButtonNoPadding, Row } from "components/lib";
+import { projectListActions } from "./project-list.slice";
+import { useDispatch } from "react-redux";
 
 export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
   useDocumentTitle("Project List", false);
+  const dispatch = useDispatch();
   const [param, setParam] = useProjectsSearchParams();
   const {
     isLoading,
@@ -25,7 +28,12 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
     <Container>
       <Row between={true}>
         <h1>Project List</h1>
-        {props.projectButton}
+        <ButtonNoPadding
+          onClick={() => dispatch(projectListActions.openProjectModal())}
+          type="link"
+        >
+          Create a Project
+        </ButtonNoPadding>{" "}
       </Row>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
