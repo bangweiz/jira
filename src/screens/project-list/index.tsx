@@ -4,12 +4,15 @@ import { SearchPanel } from "screens/project-list/search-panel";
 import { List } from "screens/project-list/list";
 import { useDebounce, useDocumentTitle } from "../../utils";
 import styled from "@emotion/styled";
-import { Typography } from "antd";
+import { Button, Typography } from "antd";
 import { useProjects } from "../../utils/project";
 import { useUsers } from "../../utils/user";
 import { useProjectsSearchParams } from "./utils";
+import { Row } from "components/lib";
 
-export const ProjectListScreen = () => {
+export const ProjectListScreen = (props: {
+  setProjectModalOpen: (isOpen: boolean) => void;
+}) => {
   useDocumentTitle("Project List", false);
   const [param, setParam] = useProjectsSearchParams();
   const {
@@ -22,12 +25,18 @@ export const ProjectListScreen = () => {
 
   return (
     <Container>
-      <h1>Project List</h1>
+      <Row between={true}>
+        <h1>Project List</h1>
+        <Button onClick={() => props.setProjectModalOpen(true)}>
+          Create a Project
+        </Button>
+      </Row>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
         <Typography.Text type="danger">{error.message}</Typography.Text>
       ) : null}
       <List
+        setProjectModalOpen={props.setProjectModalOpen}
         refresh={retry}
         loading={isLoading}
         dataSource={list || []}
