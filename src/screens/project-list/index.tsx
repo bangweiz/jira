@@ -4,21 +4,15 @@ import { SearchPanel } from "screens/project-list/search-panel";
 import { List } from "screens/project-list/list";
 import { useDebounce, useDocumentTitle } from "../../utils";
 import styled from "@emotion/styled";
-import { Typography } from "antd";
 import { useProjects } from "../../utils/project";
 import { useUsers } from "../../utils/user";
 import { useProjectModal, useProjectsSearchParams } from "./utils";
-import { ButtonNoPadding, Row } from "components/lib";
+import { ButtonNoPadding, ErrorBox, Row } from "components/lib";
 
 export const ProjectListScreen = () => {
   useDocumentTitle("Project List", false);
   const [param, setParam] = useProjectsSearchParams();
-  const {
-    isLoading,
-    error,
-    data: list,
-    retry,
-  } = useProjects(useDebounce(param, 500));
+  const { isLoading, error, data: list } = useProjects(useDebounce(param, 500));
   const { data: users } = useUsers();
   const { open } = useProjectModal();
 
@@ -31,15 +25,8 @@ export const ProjectListScreen = () => {
         </ButtonNoPadding>
       </Row>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
-      {error ? (
-        <Typography.Text type="danger">{error.message}</Typography.Text>
-      ) : null}
-      <List
-        refresh={retry}
-        loading={isLoading}
-        dataSource={list || []}
-        users={users || []}
-      />
+      <ErrorBox error={error} />
+      <List loading={isLoading} dataSource={list || []} users={users || []} />
     </Container>
   );
 };

@@ -19,14 +19,13 @@ export interface Project {
 
 interface ListProps extends TableProps<Project> {
   users: User[];
-  refresh: () => void;
 }
 
 export const List = ({ users, ...props }: ListProps) => {
   const { mutate } = useEditProject();
-  const pinProject = (id: number) => (pin: boolean) =>
-    mutate({ id, pin }).then(props.refresh);
-  const { open } = useProjectModal();
+  const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin });
+  const { startEdit } = useProjectModal();
+  const editProject = (id: number) => () => startEdit(id);
 
   return (
     <Table
@@ -80,16 +79,15 @@ export const List = ({ users, ...props }: ListProps) => {
           },
         },
         {
-          render() {
+          render(value, project) {
             return (
               <Dropdown
                 overlay={
                   <Menu>
-                    <Menu.Item key="edit">
-                      <ButtonNoPadding onClick={open} type="link">
-                        Edit
-                      </ButtonNoPadding>
+                    <Menu.Item key="edit" onClick={editProject(project.id)}>
+                      Edit
                     </Menu.Item>
+                    <Menu.Item key="delete">Delete</Menu.Item>
                   </Menu>
                 }
               >
