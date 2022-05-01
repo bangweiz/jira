@@ -7,10 +7,10 @@ import styled from "@emotion/styled";
 import { Typography } from "antd";
 import { useProjects } from "../../utils/project";
 import { useUsers } from "../../utils/user";
-import { useProjectsSearchParams } from "./utils";
-import { Row } from "components/lib";
+import { useProjectModal, useProjectsSearchParams } from "./utils";
+import { ButtonNoPadding, Row } from "components/lib";
 
-export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
+export const ProjectListScreen = () => {
   useDocumentTitle("Project List", false);
   const [param, setParam] = useProjectsSearchParams();
   const {
@@ -20,19 +20,21 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
     retry,
   } = useProjects(useDebounce(param, 500));
   const { data: users } = useUsers();
+  const { open } = useProjectModal();
 
   return (
     <Container>
       <Row between={true}>
         <h1>Project List</h1>
-        {props.projectButton}
+        <ButtonNoPadding onClick={open} type="link">
+          Create a Project
+        </ButtonNoPadding>
       </Row>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
         <Typography.Text type="danger">{error.message}</Typography.Text>
       ) : null}
       <List
-        projectButton={props.projectButton}
         refresh={retry}
         loading={isLoading}
         dataSource={list || []}
