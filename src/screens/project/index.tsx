@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router";
 import { Link } from "react-router-dom";
-import { Dashboard } from "../dashboard";
+import { DashboardScreen } from "../dashboard";
 import { Epic } from "../epic";
 
 export const ProjectScreen = () => {
@@ -11,11 +11,16 @@ export const ProjectScreen = () => {
       <Link to="dashboard">Dashboard</Link>
       <Link to="epic">Epic</Link>
       <Routes>
-        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="dashboard" element={<DashboardScreen />} />
         <Route path="epic" element={<Epic />} />
         <Route
           path=""
-          element={<Navigate to={window.location.pathname + "/dashboard"} />}
+          element={
+            <Navigate
+              to={window.location.pathname + "/dashboard"}
+              replace={true}
+            />
+          }
         />
       </Routes>
     </div>
