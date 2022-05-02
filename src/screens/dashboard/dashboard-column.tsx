@@ -1,29 +1,82 @@
 import React from "react";
 import { Dashboard } from "../../types/dashboard";
 import { useTasks } from "../../utils/task";
-import { useTasksSearchParams } from "./util";
+import {
+  useDashboardQueryKey,
+  useTasksModal,
+  useTasksSearchParams,
+} from "./util";
 import { useTaskTypes } from "../../utils/task-type";
 import taskIcon from "assets/task.svg";
 import bugIcon from "assets/bug.svg";
 import styled from "@emotion/styled";
-import { Card } from "antd";
+import { Button, Card, Dropdown, Menu, Modal } from "antd";
+import { CreateTask } from "./create-tasks";
+import { Task } from "../../types/task";
+import { Mark } from "../../components/mark";
+import { useDeleteDashboard } from "../../utils/dashboard";
+import { Row } from "../../components/lib";
 
 export const DashboardColumn = ({ dashboard }: { dashboard: Dashboard }) => {
   const { data: allTasks } = useTasks(useTasksSearchParams());
   const tasks = allTasks?.filter((task) => task.kanbanId === dashboard.id);
-
   return (
     <Container>
-      <h3>{dashboard.name}</h3>
+      <Row between={true}>
+        <h3>{dashboard.name}</h3>
+        <More dashboard={dashboard} />
+      </Row>
       <TasksContainer>
         {tasks?.map((task) => (
-          <Card style={{ marginBottom: "0.5rem" }} key={task.id}>
-            <div>{task.name}</div>
-            <TaskTypeIcon id={task.typeId} />
-          </Card>
+          <TaskCard key={task.id} task={task} />
         ))}
+        <CreateTask dashboardId={dashboard.id} />
       </TasksContainer>
     </Container>
+  );
+};
+
+const TaskCard = ({ task }: { task: Task }) => {
+  const { startEdit } = useTasksModal();
+  const { name: keyword } = useTasksSearchParams();
+  return (
+    <Card
+      onClick={() => startEdit(task.id)}
+      style={{ marginBottom: "0.5rem", cursor: "pointer" }}
+    >
+      <p>
+        <Mark name={task.name} keyword={keyword} />
+      </p>
+      <TaskTypeIcon id={task.typeId} />
+    </Card>
+  );
+};
+
+const More = ({ dashboard }: { dashboard: Dashboard }) => {
+  const { mutateAsync } = useDeleteDashboard(useDashboardQueryKey());
+  const startDelete = () => {
+    Modal.confirm({
+      okText: "Yes",
+      cancelText: "Cancel",
+      title: "Sure?",
+      onOk() {
+        return mutateAsync({ id: dashboard.id });
+      },
+    });
+  };
+  const overlay = (
+    <Menu>
+      <Menu.Item>
+        <Button type="link" onClick={startDelete}>
+          Delete
+        </Button>
+      </Menu.Item>
+    </Menu>
+  );
+  return (
+    <Dropdown overlay={overlay}>
+      <Button type="link">...</Button>
+    </Dropdown>
   );
 };
 

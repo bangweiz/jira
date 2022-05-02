@@ -12,6 +12,8 @@ import { SearchPanel } from "./search-panel";
 import { useTasks } from "../../utils/task";
 import { Spin } from "antd";
 import { ScreenContainer } from "../../components/lib";
+import { CreateDashboard } from "./create-dashboard";
+import { TaskModal } from "./task-modal";
 
 export const DashboardScreen = () => {
   useDocumentTitle("Dashboard");
@@ -33,13 +35,15 @@ export const DashboardScreen = () => {
           {dashboards?.map((dashboard) => (
             <DashboardColumn dashboard={dashboard} key={dashboard.id} />
           ))}
+          <CreateDashboard />
         </ColumnContainer>
       )}
+      <TaskModal />
     </ScreenContainer>
   );
 };
 
-const ColumnContainer = styled.div`
+export const ColumnContainer = styled.div`
   display: flex;
   overflow-x: auto;
   flex: 1;
