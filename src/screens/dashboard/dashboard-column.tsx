@@ -16,25 +16,41 @@ import { Task } from "../../types/task";
 import { Mark } from "../../components/mark";
 import { useDeleteDashboard } from "../../utils/dashboard";
 import { Row } from "../../components/lib";
+import { Drag, Drop, DropChild } from "../../components/drag-and-drop";
 
-export const DashboardColumn = ({ dashboard }: { dashboard: Dashboard }) => {
+export const DashboardColumn = React.forwardRef<
+  HTMLDivElement,
+  { dashboard: Dashboard }
+>(({ dashboard, ...props }, ref) => {
   const { data: allTasks } = useTasks(useTasksSearchParams());
   const tasks = allTasks?.filter((task) => task.kanbanId === dashboard.id);
   return (
-    <Container>
+    <Container {...props} ref={ref}>
       <Row between={true}>
         <h3>{dashboard.name}</h3>
-        <More dashboard={dashboard} />
+        <More dashboard={dashboard} key={dashboard.id} />
       </Row>
       <TasksContainer>
-        {tasks?.map((task) => (
-          <TaskCard key={task.id} task={task} />
-        ))}
+        <Drop droppableId={"" + dashboard.id} direction="vertical" type="ROW">
+          <DropChild style={{ minHeight: "5px" }}>
+            {tasks?.map((task, taskIndex) => (
+              <Drag
+                key={task.id}
+                draggableId={"task" + task.id}
+                index={taskIndex}
+              >
+                <div>
+                  <TaskCard task={task} />
+                </div>
+              </Drag>
+            ))}
+          </DropChild>
+        </Drop>
         <CreateTask dashboardId={dashboard.id} />
       </TasksContainer>
     </Container>
   );
-};
+});
 
 const TaskCard = ({ task }: { task: Task }) => {
   const { startEdit } = useTasksModal();
