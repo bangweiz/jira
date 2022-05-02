@@ -11,7 +11,8 @@ import { Button, Dropdown, Menu } from "antd";
 import { ProjectScreen } from "./screens/project";
 import { resetRoute } from "./utils";
 import { ProjectModal } from "./screens/project-list/project-modal";
-import { ProjectPopover } from "./screens/dashboard/project-popover";
+import { ProjectPopover } from "./components/project-popover";
+import { UserPopover } from "./components/user-popover";
 
 export const AuthenticatedApp = () => {
   return (
@@ -39,7 +40,7 @@ const PageHeader = () => {
           <SoftwareLogo width="18rem" color="rbg(38, 132, 255)" />
         </ButtonNoPadding>
         <ProjectPopover />
-        <span>User</span>
+        <UserPopover />
       </HeaderLeft>
       <HeaderRight>
         <User />

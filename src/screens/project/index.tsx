@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { DashboardScreen } from "../dashboard";
-import { Epic } from "../epic";
+import { EpicScreen } from "../epic";
 import styled from "@emotion/styled";
 import { Menu } from "antd";
 
@@ -29,7 +29,7 @@ export const ProjectScreen = () => {
       <Main>
         <Routes>
           <Route path="dashboard" element={<DashboardScreen />} />
-          <Route path="epic" element={<Epic />} />
+          <Route path="epic" element={<EpicScreen />} />
           <Route
             path=""
             element={
