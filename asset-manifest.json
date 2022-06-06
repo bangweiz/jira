@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/jira/static/css/main.e5375e83.chunk.css",
-    "main.js": "/jira/static/js/main.ba781e5d.chunk.js",
-    "main.js.map": "/jira/static/js/main.ba781e5d.chunk.js.map",
+    "main.js": "/jira/static/js/main.e8533ebe.chunk.js",
+    "main.js.map": "/jira/static/js/main.e8533ebe.chunk.js.map",
     "runtime-main.js": "/jira/static/js/runtime-main.cb47d46c.js",
     "runtime-main.js.map": "/jira/static/js/runtime-main.cb47d46c.js.map",
     "static/css/2.f8632fe1.chunk.css": "/jira/static/css/2.f8632fe1.chunk.css",
-    "static/js/2.fd3b9f4b.chunk.js": "/jira/static/js/2.fd3b9f4b.chunk.js",
-    "static/js/2.fd3b9f4b.chunk.js.map": "/jira/static/js/2.fd3b9f4b.chunk.js.map",
+    "static/js/2.97e908bd.chunk.js": "/jira/static/js/2.97e908bd.chunk.js",
+    "static/js/2.97e908bd.chunk.js.map": "/jira/static/js/2.97e908bd.chunk.js.map",
     "static/js/3.912b1da6.chunk.js": "/jira/static/js/3.912b1da6.chunk.js",
     "static/js/3.912b1da6.chunk.js.map": "/jira/static/js/3.912b1da6.chunk.js.map",
     "index.html": "/jira/index.html",
     "static/css/2.f8632fe1.chunk.css.map": "/jira/static/css/2.f8632fe1.chunk.css.map",
     "static/css/main.e5375e83.chunk.css.map": "/jira/static/css/main.e5375e83.chunk.css.map",
-    "static/js/2.fd3b9f4b.chunk.js.LICENSE.txt": "/jira/static/js/2.fd3b9f4b.chunk.js.LICENSE.txt",
+    "static/js/2.97e908bd.chunk.js.LICENSE.txt": "/jira/static/js/2.97e908bd.chunk.js.LICENSE.txt",
     "static/media/bug.bc7dca9d.svg": "/jira/static/media/bug.bc7dca9d.svg",
     "static/media/left.e74de3ec.svg": "/jira/static/media/left.e74de3ec.svg",
     "static/media/logo.6c866125.svg": "/jira/static/media/logo.6c866125.svg",
@@ -24,8 +24,8 @@
   "entrypoints": [
     "static/js/runtime-main.cb47d46c.js",
     "static/css/2.f8632fe1.chunk.css",
-    "static/js/2.fd3b9f4b.chunk.js",
+    "static/js/2.97e908bd.chunk.js",
     "static/css/main.e5375e83.chunk.css",
-    "static/js/main.ba781e5d.chunk.js"
+    "static/js/main.e8533ebe.chunk.js"
   ]
 }
